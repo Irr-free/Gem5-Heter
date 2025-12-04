@@ -1,0 +1,13 @@
+# -*- mode:python -*-
+# Build rules for the accelerator demo (NPU + SimpleDMA) stored in HeterSim.
+
+Import('*')
+
+SimObject('NPU.py', sim_objects=['NPU'])
+SimObject('SimpleDMA.py', sim_objects=['SimpleDMA'])
+
+Source('NPU.cc')
+Source('SimpleDMA.cc')
+
+DebugFlag('NPU')
+DebugFlag('SimpleDMA')
