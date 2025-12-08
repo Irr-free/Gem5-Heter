@@ -41,14 +41,11 @@ def build_system():
         cpu.dcache_port = system.membus.cpu_side_ports
         cpu.createThreads()
 
-    system.hbm_ctrl = MemCtrl(
-        dram=HBM_1000_4H_1x128(),
-        range=AddrRange(0x80000000, size="512MB"),
-    )
-    system.dram_ctrl = MemCtrl(
-        dram=DDR4_2400_8x8(),
-        range=AddrRange(0xA0000000, size="1536MB"),
-    )
+    system.hbm_ctrl = MemCtrl(dram=HBM_1000_4H_1x128())
+    system.hbm_ctrl.dram.range = AddrRange(0x80000000, size="512MB")
+    system.dram_ctrl = MemCtrl(dram=DDR4_2400_8x8())
+    
+    system.dram_ctrl.dram.range = AddrRange(0xA0000000, size="1536MB")
     system.hbm_ctrl.port = system.membus.mem_side_ports
     system.dram_ctrl.port = system.membus.mem_side_ports
 
@@ -75,7 +72,6 @@ def build_system():
 
     system.membus.mem_side_ports = system.acc_bus.cpu_side_ports
     system.acc_bus.mem_side_ports = system.membus.cpu_side_ports
-    system.acc_bus.range = AddrRange(0x10020000, 0x1002FFFF)
 
     system.system_port = system.membus.cpu_side_ports
 
